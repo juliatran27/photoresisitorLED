@@ -11,14 +11,26 @@
   Download drawings and code at: https://github.com/sparkfun/SIK-Guide-Code
 */
 
+#define led 13
+
 int photoresistor = 0;              //this variable will hold a value based on the brightness of the ambient light
-int threshold = 750;                //if the photoresistor reading is below this value the the light will turn on
+int threshold = 900;                //if the photoresistor reading is below this value the the light will turn on
 
 void setup()
 {
   Serial.begin(9600);               //start a serial connection with the computer
 
-  pinMode(13, OUTPUT);              //set pin 13 as an output that can be set to HIGH or LOW
+  pinMode(led, OUTPUT);              //set pin 13 as an output that can be set to HIGH or LOW
+}
+void blink(){
+  digitalWrite(led, HIGH);
+  delay(1000);
+
+  digitalWrite(led, LOW);
+  delay(1000);
+}
+void pattern(){
+  blink();
 }
 
 void loop()
@@ -29,7 +41,7 @@ void loop()
 
   //if the photoresistor value is below the threshold turn the light on, otherwise turn it off
   if (photoresistor < threshold) {
-    digitalWrite(13, HIGH);         // Turn on the LED
+    pattern();
   } else {
     digitalWrite(13, LOW);          // Turn off the LED
   }
